@@ -13,17 +13,21 @@ Pathway output folder:
 --------------------------------------- PART ONE ---------------------------------
 
 How to download fastqc:
+
 module spider fastqc
 module load fastqc/0.11.5
 echo $PATH to make sure its there
 
 command for saving output files:
+
 fastqc -o /projects/bgmp/tonib/bioinfo/Bi623/FastQC/Output_Fastqc /projects/bgmp/shared/2017_sequencing/demultiplexed/29_4E_fox_S21_L008_R2_001.fastq.gz
 
 command to download files to my personal laptop:
+
 scp -r tonib@talapas-ln1.uoregon.edu:/gpfs/projects/bgmp/tonib/bioinfo/Bi623/FastQC/Output_Fastqc /Users/tonibrooks/bioinfo/Bi623/FASTQC
 
 Wrapper Notes:
+
 Its a bash script that calls my python script
 we write a wrapper to pass sbash commands and do conda activate (or anything else we need to do bash wise before we run our python script)
 
@@ -58,6 +62,7 @@ R1: AGATCGGAAGAGCACACGTCTGAACTCCAGTCA
 R2: AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT
 
 commands to run cutadapt with paired ends:
+
 cutadapt -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCA -A AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT -o out_29R1.fastq -p out_29R2.fastq /projects/bgmp/shared/2017_sequencing/demultiplexed/29_4E_fox_S21_L008_R1_001.fastq.gz /projects/bgmp/shared/2017_sequencing/demultiplexed/29_4E_fox_S21_L008_R2_001.fastq.gz
 
 cutadapt -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCA -A AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT -o out_undR1.fastq -p out_undR2.fastq /projects/bgmp/shared/2017_sequencing/demultiplexed/Undetermined_S0_L008_R1_001.fastq.gz /projects/bgmp/shared/2017_sequencing/demultiplexed/Undetermined_S0_L008_R2_001.fastq.gz
@@ -67,9 +72,13 @@ cutadapt -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCA -A AGATCGGAAGAGCGTCGTGTAGGGAAAGAGT
 === Summary ===
 
 Total read pairs processed:          4,827,433
+
   Read 1 with adapter:                 361,886 (7.5%)
+  
   Read 2 with adapter:                 400,819 (8.3%)
+  
 Pairs written (passing filters):     4,827,433 (100.0%)
+
 
 Total basepairs processed:   975,141,466 bp
   Read 1:   487,570,733 bp
@@ -316,9 +325,13 @@ length  count   expect  max.err error counts
 How many times R1 and R2 was trimmed for 29_4E_fox_S21_L008_R1_001 and 29_4E_fox_S21_L008_R2_001:
 
 Total read pairs processed:          4,827,433
+
   Read 1 with adapter:                 361,886 (7.5%)
+  
   Read 2 with adapter:                 400,819 (8.3%)
+  
 Pairs written (passing filters):     4,827,433 (100.0%)
+
 
 Adapted 1: Sequence: AGATCGGAAGAGCACACGTCTGAACTCCAGTCA; Type: regular 3'; Length: 33; Trimmed: 361886 times
 Adapter 2: Sequence: AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT; Type: regular 3'; Length: 33; Trimmed: 400819 times
@@ -577,10 +590,15 @@ length  count   expect  max.err error counts
 
 
 How many times R1 and R2 was trimmed for 29_4E_fox_S21_L008_R1_001 and 29_4E_fox_S21_L008_R2_001:
+
 Total read pairs processed:         14,760,166
+
   Read 1 with adapter:                 543,021 (3.7%)
+  
   Read 2 with adapter:                 607,660 (4.1%)
+  
 Pairs written (passing filters):    14,760,166 (100.0%)
+
 
 Adapter 1: Sequence: AGATCGGAAGAGCACACGTCTGAACTCCAGTCA; Type: regular 3'; Length: 33; Trimmed: 543021 times
 Adapter 2: Sequence: AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT; Type: regular 3'; Length: 33; Trimmed: 607660 times
@@ -601,39 +619,46 @@ original data files:
 
 
 For R1 files----
-zcat /projects/bgmp/shared/2017_sequencing/demultiplexed/29_4E_fox_S21_L008_R1_001.fastq.gz |  awk '/AGATCGGAAGAGCACACGTCTGAACTCCAGTCA/ {print index($0, "AGATCGGAAGAGCACACGTCTGAACTCCAGTCA" )}' | head -10
 
-zcat /projects/bgmp/shared/2017_sequencing/demultiplexed/Undetermined_S0_L008_R1_001.fastq.gz |  awk '/AGATCGGAAGAGCACACGTCTGAACTCCAGTCA/ {print index($0, "AGATCGGAAGAGCACACGTCTGAACTCCAGTCA" )}' | head -10
+zcat /projects/bgmp/shared/2017_sequencing/demultiplexed/29_4E_fox_S21_L008_R1_001.fastq.gz |  awk '/AGATCGGAAGAGCACACGTCTGAACTCCAGTCA/ {print index($0, "AGATCGGAAGAGCACACGTCTGAACTCCAGTCA" )}' | head 
+
+zcat /projects/bgmp/shared/2017_sequencing/demultiplexed/Undetermined_S0_L008_R1_001.fastq.gz |  awk '/AGATCGGAAGAGCACACGTCTGAACTCCAGTCA/ {print index($0, "AGATCGGAAGAGCACACGTCTGAACTCCAGTCA" )}' | head 
 
 For R2 Files----
-zcat /projects/bgmp/shared/2017_sequencing/demultiplexed/29_4E_fox_S21_L008_R2_001.fastq.gz |  awk '/AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT/ {print index($0, "AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT" )}' | head -10
 
-zcat /projects/bgmp/shared/2017_sequencing/demultiplexed/Undetermined_S0_L008_R2_001.fastq.gz |  awk '/AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT/ {print index($0, "AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT" )}' | head -10
+zcat /projects/bgmp/shared/2017_sequencing/demultiplexed/29_4E_fox_S21_L008_R2_001.fastq.gz |  awk '/AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT/ {print index($0, "AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT" )}' | head 
+
+zcat /projects/bgmp/shared/2017_sequencing/demultiplexed/Undetermined_S0_L008_R2_001.fastq.gz |  awk '/AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT/ {print index($0, "AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT" )}' | head 
 
 To test whether the above command works on the already trimmed file (should return an empty index):
 /projects/bgmp/tonib/bioinfo/Bi623/FastQC/Trim_Output/29_out_1P.fq.gz
 
-cat /projects/bgmp/tonib/bioinfo/Bi623/FastQC/Trim_Output/29_out_1P.fq |  awk '/AGATCGGAAGAGCACACGTCTGAACTCCAGTCA/ {print index($0, "AGATCGGAAGAGCACACGTCTGAACTCCAGTCA" )}' | head -10
+cat /projects/bgmp/tonib/bioinfo/Bi623/FastQC/Trim_Output/29_out_1P.fq |  awk '/AGATCGGAAGAGCACACGTCTGAACTCCAGTCA/ {print index($0, "AGATCGGAAGAGCACACGTCTGAACTCCAGTCA" )}' | head 
 
 
 _______Make a new sbatch for trimming_____
+
 ---resource: http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/TrimmomaticManual_V0.32.pdf ---
 
 Input 29:
+
 out_29R1.f.fastq - for paired forward reads
 out_29R2.r.fastq - for unpaired forward reads
 
 Output:
+
 29_out_1P.fq.gz - for paired forward reads
 29_out_1U.fq.gz - for unpaired forward reads
 29_out_2P.fq.gz - for paired reverse reads
 29_out_2U.fq.gz - for unpaired reverse reads
 
 Input Undetermined:
+
 out_undR1.f.fastq - for paired reverse reads
 out_undR1.r.fastq - for unpaired reverse reads
 
 Output:
+
 und_out_1P.fq.gz - for paired forward reads
 und_out_1U.fq.gz - for unpaired forward reads
 und_out_2P.fq.gz - for paired reverse reads
@@ -654,6 +679,7 @@ cd /projects/bgmp/tonib/bioinfo/Bi623/FastQC
 conda activate QAA
 
 Using Trimmomatic:
+
 trimmomatic PE 34_4H.f.fastq  out_29R1.fastq 34_Filtered_1P.fq.gz 34_Filtered_1U.fq.gz 34_Filtered_2P.fq.gz 34_Filtered_2U.fq.gz LEADING:3 TRAILING:3 SLIDINGWINDOW:5:15 MINLEN:35
 
 
@@ -662,9 +688,11 @@ Run to make fastq files from our paired trim output files:
 *to install fastqc into our QAA environment: conda install -n QAA fastqc 
 
 *to make the fastqc files
+
 fastqc -o /projects/bgmp/tonib/bioinfo/Bi623/FastQC/FastQC_trimmed /projects/bgmp/tonib/bioinfo/Bi623/FastQC/Trim_Output/und_out_2P.fq.gz
 
 *to clone fastqc_trimmed to my computer:
+
 scp -r tonib@talapas-ln1.uoregon.edu:/projects/bgmp/tonib/bioinfo/Bi623/FastQC/FastQC_trimmed /Users/tonibrooks/bioinfo/Bi623/FASTQC/FastQC_trimmed
 
 
@@ -679,6 +707,7 @@ cat /projects/bgmp/tonib/bioinfo/Bi623/FastQC/Trim_Output/und_out_1P.fq | sed -n
 cat /projects/bgmp/tonib/bioinfo/Bi623/FastQC/Trim_Output/und_out_2P.fq | sed -n "2~4p" | awk '{print length($0)}'| sort -n | uniq -c > distribution_undR2.txt
 
 ----Installing STAR and other packages--
+
 conda activate QAA
 conda install star -c bioconda
 STAR --version
@@ -709,6 +738,7 @@ directory: Mus_musculus.GRCm39.dna.ens107.STAR_2.7.10a
 #SBATCH --partition=bgmp          ### partition to run things
 
 #the RNA sequence data that we are aligning:
+
 # R1='/projects/bgmp/tonib/bioinfo/Bi623/FastQC/Trim_Output/29_out_1P.fq.gz'
 # R2='/projects/bgmp/tonib/bioinfo/Bi623/FastQC/Trim_Output/29_out_2P.fq.gz'
 
@@ -744,19 +774,29 @@ output: 9598674 aligned_genome.Aligned.out.sam
 check for mapped vs unmapped reads:
 
 #command to run script: 
+
 ./mapped.py -f /projects/bgmp/tonib/bioinfo/Bi623/FastQC/Alignment_mouse/aligned_genome_und.Aligned.out.sam
+
   Number of mapped reads: 15584505
+  
   Number of unmapped reads: 8735637
+  
   Total Number of Reads: 25188716
+  
   (15584505/25188716)*100% = 61.87% of mapped reads
 
 ./mapped.py -f /projects/bgmp/tonib/bioinfo/Bi623/FastQC/Alignment_mouse/aligned_genome29.Aligned.out.sam
+
   Number of mapped reads: 8883012
+  
   Number of unmapped reads: 260796
+  
   Total Number of Reads: 9598610
+  
   (8883012/9598610)*100% = 92.54% of mapped reads
 
 ----To run htseq------
+
 htseq-count --format sam --stranded=yes  /projects/bgmp/tonib/bioinfo/Bi623/FastQC/Alignment_mouse/aligned_genome29.Aligned.out.sam /projects/bgmp/tonib/bioinfo/Bi623/FastQC/Alignment_mouse/Mus_musculus.GRCm39.107.gtf > 29_htseq_Forward.txt
 
 htseq-count --format sam --stranded=reverse  /p rojects/bgmp/tonib/bioinfo/Bi623/FastQC/Alignment_mouse/aligned_genome29.Aligned.out.sam /projects/bgmp/tonib/bioinfo/Bi623/FastQC/Alignment_mouse/Mus_musculus.GRCm39.107.gtf > 29_htseq_Reverse.txt
